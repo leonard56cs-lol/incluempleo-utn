@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncluEmpleo - Más oportunidades, sin barreras</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Barra Superior de Accesibilidad (RNF-01, RNF-11) -->
+  <div class="accessibility-bar" role="region" aria-label="Herramientas de accesibilidad">
+    <span>
+      <i data-lucide="accessibility"></i>
+      <strong>Opciones de Accesibilidad:</strong>
+    </span>
+    <button id="btnContrast" aria-label="Cambiar alto contraste">
+      <i data-lucide="eye"></i> Alto Contraste
+    </button>
+    <button id="btnFontIncrease" aria-label="Aumentar tamaño de letra">A+</button>
+    <button id="btnFontDecrease" aria-label="Disminuir tamaño de letra">A-</button>
+    <button id="btnHighlightLinks" aria-label="Resaltar enlaces">
+      <i data-lucide="link"></i> Resaltar Enlaces
+    </button>
+    <button id="btnTTS" aria-label="Activar lector de voz integrado">
+      <i data-lucide="volume-2"></i> Lector de Voz: <span id="ttsStatus">DESACTIVADO</span>
+    </button>
+  </div>
+
+  <!-- Encabezado e Identificador del Sitio (Identificador del Sitio & Menú) -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="brand-logo" data-section="inicio" aria-label="IncluEmpleo Inicio">
+        <div class="logo-icon">
+          <i data-lucide="heart-handshake"></i>
+        </div>
+        <div class="brand-text">
+          <h1>IncluEmpleo</h1>
+          <p>Más oportunidades, sin barreras</p>
+        </div>
+      </a>
+
+      <!-- Selector de Simulación de Rol (Para pruebas académicas) -->
+      <div class="role-selector">
+        <label for="roleSelect"><i data-lucide="user-check"></i> Rol Activo:</label>
+        <select id="roleSelect">
+          <option value="guest">Visitante (Sin inicio de sesión)</option>
+          <option value="user">Usuario (Candidato)</option>
+          <option value="company">Empresa Registrada</option>
+        </select>
+      </div>
+
+      <!-- Menú de Navegación Principal (RF-18) -->
+      <nav class="main-nav" aria-label="Navegación principal">
+        <ul>
+          <li><button data-section="inicio"><i data-lucide="home"></i> Inicio</button></li>
+          <li><button data-section="vacantes"><i data-lucide="briefcase"></i> Vacantes</button></li>
+          <li><button data-section="empresas"><i data-lucide="building"></i> Empresas</button></li>
+          <li class="auth-only user-only hidden"><button data-section="perfil"><i data-lucide="user"></i> Mi Perfil</button></li>
+          <li class="auth-only company-only hidden"><button data-section="perfil-empresa"><i data-lucide="building-2"></i> Perfil Empresa</button></li>
+          <li class="auth-only hidden"><button data-section="buzon"><i data-lucide="inbox"></i> Buzón</button></li>
+          <li class="auth-only hidden"><button data-section="chat"><i data-lucide="message-square"></i> Chat</button></li>
+          <li><button data-section="ayuda"><i data-lucide="help-circle"></i> Ayuda</button></li>
+          <li><button data-section="contacto"><i data-lucide="mail"></i> Contáctanos</button></li>
+          <li><button data-section="accesibilidad"><i data-lucide="shield"></i> Accesibilidad</button></li>
+        </ul>
+      </nav>
+
+      <!-- Accesos de Usuario y Autenticación -->
+      <div class="auth-buttons">
+        <div class="guest-only flex-gap">
+          <button class="btn btn-outline" data-section="login"><i data-lucide="log-in"></i> Iniciar Sesión</button>
+          <button class="btn btn-primary" data-section="registro"><i data-lucide="user-plus"></i> Registrarse</button>
+        </div>
+        <div class="auth-only hidden">
+          <button class="btn btn-danger" id="btnLogout"><i data-lucide="log-out"></i> Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido Principal Dinámico -->
+  <main class="main-container" id="mainContent">
+
+    <!-- SECCIÓN: INICIO -->
+    <section id="sec-inicio" class="page-section active">
+      <div class="hero-banner">
+        <h2>Bolsa de Trabajo e Inclusión para Grupos Vulnerables</h2>
+        <p>Facilitamos el acceso al empleo digno para personas con discapacidad, adultos mayores, migrantes y jóvenes en situación de vulnerabilidad.</p>
+        <div class="search-box-hero">
+          <i data-lucide="search"></i>
+          <input type="text" id="heroSearchInput" placeholder="Puesto, habilidad o palabra clave...">
+          <button class="btn btn-primary" id="btnHeroSearch">Buscar Vacantes</button>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <i data-lucide="shield-check" class="feature-icon"></i>
+          <h3>Vacantes Inclusivas</h3>
+          <p>Ofertas libres de discriminación y adaptadas a diferentes necesidades de accesibilidad.</p>
+        </div>
+        <div class="feature-card">
+          <i data-lucide="eye" class="feature-icon"></i>
+          <h3>Interfaz Accesible</h3>
+          <p>Soporte para lectores de pantalla, navegación por teclado y ajuste de contraste.</p>
+        </div>
+        <div class="feature-card">
+          <i data-lucide="users" class="feature-icon"></i>
+          <h3>Autonomía Económica</h3>
+          <p>Herramientas para impulsar la autosuficiencia e inserción laboral formal.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: VACANTES (RF-08, RF-09, RF-10) -->
+    <section id="sec-vacantes" class="page-section">
+      <div class="section-title">
+        <h2>Consulta y Búsqueda de Vacantes</h2>
+        <p>Encuentra oportunidades adaptadas a tus capacidades e intereses.</p>
+      </div>
+
+      <div class="vacantes-layout">
+        <!-- Panel de Filtros -->
+        <aside class="filters-sidebar">
+          <h3><i data-lucide="filter"></i> Filtrar Búsqueda</h3>
+          <div class="form-group">
+            <label for="filterCategory">Categoría</label>
+            <select id="filterCategory">
+              <option value="">Todas las categorías</option>
+              <option value="Tecnología / Software">Tecnología / Software</option>
+              <option value="Administración">Administración</option>
+              <option value="Atención al Cliente">Atención al Cliente</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="filterLocation">Modalidad</label>
+            <select id="filterLocation">
+              <option value="">Todas las modalidades</option>
+              <option value="Remoto">Remoto</option>
+              <option value="Presencial">Presencial</option>
+              <option value="Híbrido">Híbrido</option>
+            </select>
+          </div>
+        </aside>
+
+        <!-- Lista de Vacantes -->
+        <div class="vacantes-list-container">
+          <div class="company-only hidden mb-1">
+            <button class="btn btn-success" id="btnOpenNuevaVacante"><i data-lucide="plus-circle"></i> Publicar Nueva Vacante (RF-06)</button>
+          </div>
+          <div id="vacantesList" class="cards-grid">
+            <!-- Cargado dinámicamente por vacantes.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: EMPRESAS -->
+    <section id="sec-empresas" class="page-section">
+      <div class="section-title">
+        <h2>Empresas Inclusivas Registradas</h2>
+      </div>
+      <div id="empresasList" class="cards-grid">
+        <div class="card">
+          <h3>TechInclusion S.A.</h3>
+          <p>Especializada en desarrollo de software accesible y tecnología inclusiva.</p>
+          <span class="badge">Sede: Estado de México</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: MI PERFIL (RF-04) -->
+    <section id="sec-perfil" class="page-section">
+      <div class="form-card">
+        <h2><i data-lucide="user"></i> Mi Perfil de Candidato</h2>
+        <form id="formPerfil" novalidate>
+          <div class="form-group">
+            <label for="perfilNombre">Nombre Completo</label>
+            <input type="text" id="perfilNombre" value="Leonardo Carrillo Santiago">
+          </div>
+          <div class="form-group">
+            <label for="perfilFecha">Fecha de Nacimiento (VD-10)</label>
+            <input type="date" id="perfilFecha" value="2002-05-15">
+            <span class="error-msg" id="err-perfilFecha"></span>
+          </div>
+          <div class="form-group">
+            <label for="perfilUbicacion">Ubicación (VD-11)</label>
+            <input type="text" id="perfilUbicacion" value="Nezahualcóyotl, Estado de México">
+            <span class="error-msg" id="err-perfilUbicacion"></span>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: REGISTRO (RF-01, RF-05, VD-01 a VD-06, VD-23, VD-24) -->
+    <section id="sec-registro" class="page-section">
+      <div class="form-card">
+        <h2>Registro de Usuarios / Empresas</h2>
+        <form id="formRegistro" novalidate>
+          <div class="form-group">
+            <label for="regTipo">Tipo de Cuenta</label>
+            <select id="regTipo">
+              <option value="usuario">Usuario / Candidato</option>
+              <option value="empresa">Empresa / Empleador</option>
+            </select>
+          </div>
+
+          <div id="camposUsuario">
+            <div class="form-group">
+              <label for="regNombre">Nombre (VD-01)</label>
+              <input type="text" id="regNombre" placeholder="Ej. Leonardo">
+              <span class="error-msg" id="err-regNombre"></span>
+            </div>
+            <div class="form-group">
+              <label for="regApellidos">Apellidos (VD-02)</label>
+              <input type="text" id="regApellidos" placeholder="Ej. Carrillo Santiago">
+              <span class="error-msg" id="err-regApellidos"></span>
+            </div>
+          </div>
+
+          <div id="camposEmpresa" class="hidden">
+            <div class="form-group">
+              <label for="regEmpresaNombre">Nombre de la Empresa (VD-23)</label>
+              <input type="text" id="regEmpresaNombre" placeholder="Ej. TechInclusion S.A.">
+              <span class="error-msg" id="err-regEmpresaNombre"></span>
+            </div>
+            <div class="form-group">
+              <label for="regSitioWeb">Sitio Web (VD-24)</label>
+              <input type="url" id="regSitioWeb" placeholder="https://ejemplo.com">
+              <span class="error-msg" id="err-regSitioWeb"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regCorreo">Correo Electrónico (VD-03)</label>
+            <input type="email" id="regCorreo" placeholder="correo@ejemplo.com">
+            <span class="error-msg" id="err-regCorreo"></span>
+          </div>
+          <div class="form-group">
+            <label for="regTelefono">Teléfono (VD-06)</label>
+            <input type="text" id="regTelefono" placeholder="5512345678">
+            <span class="error-msg" id="err-regTelefono"></span>
+          </div>
+          <div class="form-group">
+            <label for="regPassword">Contraseña (VD-04)</label>
+            <input type="password" id="regPassword">
+            <span class="error-msg" id="err-regPassword"></span>
+          </div>
+          <div class="form-group">
+            <label for="regConfirmPassword">Confirmar Contraseña (VD-05)</label>
+            <input type="password" id="regConfirmPassword">
+            <span class="error-msg" id="err-regConfirmPassword"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: INICIO DE SESIÓN (RF-02, VD-07, VD-08) -->
+    <section id="sec-login" class="page-section">
+      <div class="form-card">
+        <h2>Inicio de Sesión</h2>
+        <form id="formLogin" novalidate>
+          <div class="form-group">
+            <label for="loginCorreo">Correo Electrónico (VD-07)</label>
+            <input type="email" id="loginCorreo">
+            <span class="error-msg" id="err-loginCorreo"></span>
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Contraseña (VD-08)</label>
+            <input type="password" id="loginPassword">
+            <span class="error-msg" id="err-loginPassword"></span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+          <div class="mt-1 text-center">
+            <a href="#" data-section="recuperar">¿Olvidaste tu contraseña? (RF-03)</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: RECUPERACIÓN DE CONTRASEÑA (RF-03, VD-09) -->
+    <section id="sec-recuperar" class="page-section">
+      <div class="form-card">
+        <h2>Recuperar Contraseña</h2>
+        <form id="formRecuperar" novalidate>
+          <div class="form-group">
+            <label for="recCorreo">Correo Electrónico Registrado (VD-09)</label>
+            <input type="email" id="recCorreo">
+            <span class="error-msg" id="err-recCorreo"></span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Enviar Instrucciones</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: BUZÓN (RF-11) -->
+    <section id="sec-buzon" class="page-section">
+      <div class="section-title">
+        <h2>Buzón de Mensajes y Notificaciones</h2>
+      </div>
+      <div class="messages-list">
+        <div class="message-item">
+          <strong>Confirmación de Postulación</strong>
+          <p>Has enviado tu candidatura correctamente para el puesto de Desarrollador Web Jr.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CHAT (RF-12, VD-22) -->
+    <section id="sec-chat" class="page-section">
+      <div class="chat-container">
+        <div class="chat-header">
+          <h3>Chat de Comunicación Inclusiva</h3>
+        </div>
+        <div class="chat-messages" id="chatBox">
+          <div class="chat-msg system">Soporte IncluEmpleo: ¡Hola! ¿En qué podemos ayudarte hoy?</div>
+        </div>
+        <form id="formChat" class="chat-input-area">
+          <input type="text" id="chatInput" placeholder="Escribe un mensaje...">
+          <button type="submit" class="btn btn-primary"><i data-lucide="send"></i></button>
+        </form>
+        <span class="error-msg" id="err-chatInput"></span>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: AYUDA (RF-13) -->
+    <section id="sec-ayuda" class="page-section">
+      <div class="section-title">
+        <h2>Sección de Ayuda y Preguntas Frecuentes</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>¿Cómo funcionan las herramientas de accesibilidad?</summary>
+          <p>En la barra superior puedes modificar el contraste, el tamaño de letra o activar la lectura por síntesis de voz en cualquier momento.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CONTACTO (RF-14, VD-18 a VD-21) -->
+    <section id="sec-contacto" class="page-section">
+      <div class="form-card">
+        <h2>Formulario de Contacto</h2>
+        <form id="formContacto" novalidate>
+          <div class="form-group">
+            <label for="cntNombre">Nombre (VD-18)</label>
+            <input type="text" id="cntNombre">
+            <span class="error-msg" id="err-cntNombre"></span>
+          </div>
+          <div class="form-group">
+            <label for="cntCorreo">Correo Electrónico (VD-19)</label>
+            <input type="email" id="cntCorreo">
+            <span class="error-msg" id="err-cntCorreo"></span>
+          </div>
+          <div class="form-group">
+            <label for="cntAsunto">Asunto (VD-20)</label>
+            <input type="text" id="cntAsunto">
+            <span class="error-msg" id="err-cntAsunto"></span>
+          </div>
+          <div class="form-group">
+            <label for="cntMensaje">Mensaje (VD-21)</label>
+            <textarea id="cntMensaje" rows="4"></textarea>
+            <span class="error-msg" id="err-cntMensaje"></span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Enviar Consulta</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: ACCESIBILIDAD -->
+    <section id="sec-accesibilidad" class="page-section">
+      <div class="section-title">
+        <h2>Opciones y Compromiso de Accesibilidad</h2>
+        <p>Garantizamos el cumplimiento de pautas internacionales para que todas las personas puedan usar la plataforma de forma autónoma.</p>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: MAPA DEL SITIO (RF-15) -->
+    <section id="sec-mapa" class="page-section">
+      <div class="section-title">
+        <h2>Mapa del Sitio IncluEmpleo</h2>
+      </div>
+      <div class="sitemap-grid">
+        <div class="sitemap-col">
+          <h3>Secciones Principales</h3>
+          <ul>
+            <li><a href="#" data-section="inicio">Inicio</a></li>
+            <li><a href="#" data-section="vacantes">Vacantes</a></li>
+            <li><a href="#" data-section="empresas">Empresas</a></li>
+            <li><a href="#" data-section="perfil">Mi Perfil</a></li>
+            <li><a href="#" data-section="buzon">Buzón</a></li>
+            <li><a href="#" data-section="chat">Chat</a></li>
+            <li><a href="#" data-section="ayuda">Ayuda</a></li>
+            <li><a href="#" data-section="contacto">Contáctanos</a></li>
+            <li><a href="#" data-section="accesibilidad">Accesibilidad</a></li>
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h3>Elementos Adicionales y Accesos</h3>
+          <ul>
+            <li><a href="#" data-section="registro">Registrarse</a></li>
+            <li><a href="#" data-section="login">Iniciar Sesión</a></li>
+            <li><a href="#" data-section="recuperar">Recuperar Contraseña</a></li>
+            <li><a href="#" data-section="error-404">Demo Página de Error (404)</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+<!-- SECCIÓN: PÁGINA DE ERROR 404 (Generada Dinámicamente - RF-17) -->
+    <section id="sec-error-404" class="page-section">
+      <div class="error-container">
+        <div class="error-code">404</div>
+        <i data-lucide="alert-triangle" class="error-icon"></i>
+        
+        <!-- Mensaje de Usabilidad Estándar UTN -->
+        <h2 class="error-title">Lo sentimos, la página que buscas no está disponible.</h2>
+        <p class="error-desc">
+          Es posible que la dirección haya cambiado, que la página no exista o que se haya producido un problema temporal. Puedes utilizar una de las siguientes opciones para continuar.
+        </p>
+
+        <!-- Detalle inyectado dinámicamente por el script -->
+        <div id="errorRouteDetail" class="error-badge-route"></div>
+
+        <!-- Mecanismos de Recuperación Requeridos -->
+        <div class="error-actions">
+          <button class="btn btn-primary" data-section="inicio">
+            <i data-lucide="home"></i> Regresar al Inicio
+          </button>
+          <button class="btn btn-outline" onclick="window.history.back()">
+            <i data-lucide="arrow-left"></i> Volver Atrás
+          </button>
+          <button class="btn btn-secondary" data-section="mapa">
+            <i data-lucide="map"></i> Ir al Mapa del Sitio
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pie de Página -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p>&copy; 2026 IncluEmpleo - Universidad Tecnológica de Nezahualcóyotl</p>
+      <p>Desarrollo Web Profesional | Grupo ITIC-803M</p>
+      <div class="footer-links">
+        <a href="#" data-section="mapa">Mapa del Sitio</a> |
+        <a href="#" data-section="contacto">Contacto</a> 
+      </div>
+    </div>
+  </footer>
+
+  <!-- Carga de Módulos JavaScript -->
+  <script src="js/accesibilidad.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/vacantes.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
